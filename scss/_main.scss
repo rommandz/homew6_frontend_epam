@@ -1,0 +1,114 @@
+$bodyFont: null !default;
+$noContentBackground: null !default;
+$contentBackground: null !default;
+$headersColor: null !default;
+$textColor: null !default;
+$italicStyle: null !default;
+$boldStyle: null !default;
+$linkColor: null !default;
+$imgBorderWidth: null !default;
+$imgBorderColor: null !default;
+$imgPadding: null !default;
+$briefBackground: null !default;
+$briefWidth: null !default;
+$briefFloat: null !default;
+$tableHeadBackground: null !default;
+$tableBodyBackground: null !default;
+$tableHeadBorder: null !default;
+$tableWidth: null !default;
+$wrapStatus: null !default;
+
+@mixin imgBorder($imgBorderWidth, $imgBorderColor, $imgPadding) {
+    border: $imgBorderWidth solid $imgBorderColor;
+    padding: $imgPadding;
+}
+@mixin briefStyle($briefBackground, $briefWidth, $briefFloat) {
+background: $briefBackground;
+width: $briefWidth;
+float: $briefFloat;
+}
+@mixin tableStyle($wrapStatus, $tableWidth) {
+    border-collapse: collapse;
+    margin-bottom: 5%;
+    width: $tableWidth;
+    white-space: $wrapStatus;
+        & th {
+            background-color: $tableHeadBackground;
+            border: $tableHeadBorder;
+            text-align: left;
+            font-weight: normal;
+        }
+}
+
+body{
+    padding: 0;
+    box-sizing: border-box;
+    font: $bodyFont;
+    background-color: $noContentBackground;
+    color: $textColor;
+}
+#content{
+    width: 960px;
+    margin: 0 auto;
+    background: $contentBackground;
+    padding: 1% 3%;
+        h1, h2{
+            color: $headersColor;
+        }
+        h2{
+            font-style: $italicStyle;
+            font-weight: $boldStyle;
+        }
+        .img-left{
+            display: block;
+            float: left;
+            margin: 0 2% 2% 0;
+            @include imgBorder($imgBorderWidth, $imgBorderColor, $imgPadding);
+        }
+        .img-right{
+            @extend .img-left;
+            float: right;
+            margin: 0 0 2% 2%;
+        }
+        >p:nth-of-type(4){
+            clear: left;
+        }
+        a {
+            color: $linkColor;
+        }
+        .brief{
+            font-style: italic;
+            font-weight: $boldStyle;
+            padding: 2%;
+            margin-right: 2%;
+            margin-bottom: 2%;
+            @include briefStyle($briefBackground, $briefWidth, $briefFloat);
+        }
+        table{
+            @include tableStyle($wrapStatus, $tableWidth);
+            caption{
+                text-align: right;
+                font-style: italic;
+                font-weight: $boldStyle;
+                margin-bottom: 8px;
+            }
+            th, td{
+                padding: 1% 2%;
+            }
+            td{
+                background: $tableBodyBackground;
+                border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+            }
+            td{
+                &:first-child{
+                    width: 350px;
+                }
+                &:nth-child(2){
+                    width: 170px;
+                }
+                &:last-child{
+                    width: 225px;
+                }
+            }
+        }
+}
